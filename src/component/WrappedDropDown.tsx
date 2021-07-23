@@ -1,20 +1,21 @@
 import DropDownPicker, { DropDownPickerInstanceType, DropDownPickerProps } from 'react-native-dropdown-picker';
 import * as React from 'react';
-import { Platform } from 'react-native';
-import { BW, colorTransparency, H, provideShadow } from '../common/styles';
+import { Platform, View } from 'react-native';
+import { BGCOLOR, BR, BW, colorTransparency, H, MT, provideShadow } from '../common/styles';
 import { getHP } from '../common/dimension';
-import { fs12, fs20 } from '../common';
+import { FontFamily, fs12, fs14, fs20 } from '../common';
+import WrappedText from '../component/WrappedText';
 
-export interface WrappedDropDownProps {
+export interface DropDownTitleProps {
     data: { label: string; value: string }[];
     selectValue: string;
     setValue: Function;
     callBack?: Function;
     zIndex: number;
     arrowColor?: string;
-    header: string;
+    header?: string;
     placeholder: string;
-    zIndexInverse: number;
+    zIndexInverse?: number;
     provideController?: Function;
 }
 
@@ -24,14 +25,15 @@ const dropDownProps = {
 
     style: [
         BW(0),
+        BGCOLOR('#f7f7f7'),
         {
-            borderTopRightRadius: getHP(0.2),
-            borderTopLeftRadius: getHP(0.2),
-            borderBottomRightRadius: getHP(0.2),
-            borderBottomLeftRadius: getHP(0.2),
+            borderTopRightRadius: getHP(0.08),
+            borderTopLeftRadius: getHP(0.08),
+            borderBottomRightRadius: getHP(0.08),
+            borderBottomLeftRadius: getHP(0.08),
         },
     ],
-    containerStyle: [H(getHP(Platform.OS == 'ios' ? 0.6 : 0.7))],
+    containerStyle: [H(getHP(Platform.OS == 'ios' ? 0.6 : 0.7)), MT(0.1)],
     itemStyle: {
         justifyContent: 'flex-start',
     },
@@ -39,17 +41,17 @@ const dropDownProps = {
         BW(0),
         provideShadow(6),
         {
-            borderTopRightRadius: getHP(0.2),
-            borderTopLeftRadius: getHP(0.2),
-            borderBottomRightRadius: getHP(0.2),
-            borderBottomLeftRadius: getHP(0.2),
+            borderTopRightRadius: getHP(0.08),
+            borderTopLeftRadius: getHP(0.08),
+            borderBottomRightRadius: getHP(0.08),
+            borderBottomLeftRadius: getHP(0.08),
         },
     ],
     arrowSize: fs20,
     labelStyle: { letterSpacing: 0.5, color: '#000000' + colorTransparency[80], fontSize: fs12 },
 };
 
-const WrappedDropDown: React.SFC<WrappedDropDownProps> = ({
+const DropDownTitle: React.SFC<DropDownTitleProps> = ({
     data,
     selectValue,
     setValue,
@@ -62,6 +64,14 @@ const WrappedDropDown: React.SFC<WrappedDropDownProps> = ({
     zIndexInverse,
 }) => {
     return (
+        // <View style={[{ zIndex: zIndex }, MT(0.2)]}>
+        //     <WrappedText
+        //         text={header}
+        //         fontFamily={FontFamily.RobotoRegular}
+        //         textStyle={{ letterSpacing: 0.5 }}
+        //         textColor={'#000000'}
+        //         fontSize={fs14}
+        //     />
         <DropDownPicker
             controller={provideController}
             items={data}
@@ -78,10 +88,10 @@ const WrappedDropDown: React.SFC<WrappedDropDownProps> = ({
             }}
             zIndex={zIndex}
             zIndexInverse={zIndexInverse}
-            {...dropDownProps}
             arrowColor={arrowColor || '#800947' + colorTransparency[60]}
         />
+        // </View>
     );
 };
 
-export default WrappedDropDown;
+export default DropDownTitle;

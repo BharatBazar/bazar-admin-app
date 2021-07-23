@@ -22,6 +22,12 @@ export interface shopMemberInterface {
     languagePreference: ['Hindi', 'English', 'Message'];
 }
 
+export enum shopMemberRole {
+    'Owner' = 'owner',
+    'coOwner' = 'Co-owner',
+    'worker' = 'worker',
+}
+
 export interface Shop {
     _id: string;
     shopName: string;
