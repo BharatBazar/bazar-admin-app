@@ -46,14 +46,7 @@ const ShopCard: React.FC<ShopCardProps> = ({
 }) => {
     return (
         <Ripple
-            style={[
-                FDR(),
-                BGCOLOR('#FFFFFF'),
-                BR(0.1),
-                MH(0.4),
-                PV(0.1),
-                { marginBottom: getHP(0.16), borderBottomWidth: 1, borderColor: '#e5e5e5' },
-            ]}
+            style={[FDR(), BGCOLOR('#FFFFFF'), BR(0.1), PV(0.2), { borderBottomWidth: 1, borderColor: '#e5e5e5' }]}
             onPress={() => {
                 onPress && onPress();
             }}
@@ -68,6 +61,7 @@ const ShopCard: React.FC<ShopCardProps> = ({
                 <WrappedText
                     text={localAddress}
                     fontSize={fs12}
+                    containerStyle={[MT(0.1)]}
                     numberOfLines={1}
                     textColor={'#c1c0c9'}
                     fontFamily={FontFamily.RobotoRegular}

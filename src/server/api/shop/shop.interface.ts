@@ -67,3 +67,7 @@ export const ShopFields = {
 export interface IRgetShops extends CommonApiResponse {
     payload: { payload: Partial<Shop>[]; searchCount: number; lastTime: Date };
 }
+
+export interface IRShop extends CommonApiResponse {
+    payload: Partial<Shop>;
+}

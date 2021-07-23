@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { View, FlatList } from 'react-native';
-import { FLEX, PH } from '../../common/styles';
-import { initializeAxios } from '../../server';
+import { fs24, NavigationProps } from '../../common';
+import { BGCOLOR, FLEX, PH, PT } from '../../common/styles';
+import WrappedText from '../../component/WrappedText';
+import { NavigationKey } from '../../labels';
 import { getAllShopAccToCon } from '../../server/api/shop/shop.api';
 import { IRgetShops, Shop } from '../../server/api/shop/shop.interface';
 import ShopCard from './component/ShopCard';
 
-export interface ListShopProps {}
+export interface ListShopProps extends NavigationProps {}
 
-const ListShop: React.FC<ListShopProps> = () => {
+const ListShop: React.FC<ListShopProps> = ({ navigation }) => {
     const [shops, setShops] = React.useState<Partial<Shop>[]>([]);
 
     async function fetchShopFromServer() {
@@ -26,18 +28,26 @@ const ListShop: React.FC<ListShopProps> = () => {
     }
 
     React.useEffect(() => {
-        initializeAxios();
         fetchShopFromServer();
         return () => {};
     }, []);
 
     return (
-        <View style={[FLEX(1), PH(0.5)]}>
+        <View style={[FLEX(1), PH(0.5), PT(0.5), BGCOLOR('#FFFFFF')]}>
+            <WrappedText text={'Unverfied Shops'} fontSize={fs24} />
             <FlatList
                 data={shops}
-                renderItem={(item) => {
-                    return <ShopCard shop={item} />;
+                renderItem={({ item, index }) => {
+                    return (
+                        <ShopCard
+                            shop={item}
+                            onPress={() => {
+                                navigation.navigate(NavigationKey.SHOPDETAILS, { shop: item });
+                            }}
+                        />
+                    );
                 }}
+                keyExtractor={(item, index) => index.toString()}
             />
         </View>
     );
