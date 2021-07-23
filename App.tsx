@@ -11,12 +11,13 @@ import type { Node } from 'react';
 import { View } from 'react-native';
 import 'react-native-gesture-handler';
 import { StatusBar } from 'react-native';
+import ListShop from './src/screens/shop/ListShop';
 
 const App: () => Node = () => {
     return (
         <>
             <StatusBar translucent={true} backgroundColor={'#00000000'} />
-            <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}></View>
+            <ListShop />
         </>
     );
 };
