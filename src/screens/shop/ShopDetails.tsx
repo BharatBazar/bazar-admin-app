@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Linking, Platform, ScrollView, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { fs14, fs18, NavigationProps } from '../../common';
-import { borderColor, mainColor } from '../../common/color';
+import { borderColor, colorCode, mainColor } from '../../common/color';
 import {
     BC,
     BGCOLOR,
@@ -108,7 +108,11 @@ const showMemberDetails = (details: shopMemberInterface[], role: shopMemberRole,
     };
 
     if (details.length == 0) {
-        return <WrappedText text={'There is no ' + role + ' in your shop.'} />;
+        return (
+            <View style={[PV(0.2), MT(0.1), PH(), BGCOLOR('#FFFFFF')]}>
+                <WrappedText text={'No ' + role + ' in ' + dukanName + '.'} textColor={mainColor} />
+            </View>
+        );
     } else {
         return details.map((item) => (
             <View style={[PV(0.2), MT(0.1), PH(), BGCOLOR('#FFFFFF')]}>
@@ -153,7 +157,7 @@ const shopDetails = (shop: Partial<Shop>) => {
             {SectionHorizontal('Pincode', shop.pincode || 'NA')}
 
             <WrappedText
-                text={'About ' + shop.shopName + ' dukan'}
+                text={'About ' + shop.shopName}
                 textColor={mainColor}
                 fontSize={fs18}
                 containerStyle={[MT(0.2)]}
