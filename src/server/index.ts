@@ -20,17 +20,16 @@ const handleError = (error: { isAxiosError: any; response: { data: any } }) => {
 };
 
 export function initializeAxios() {
+    console.log('INitializing axios');
     axios.defaults.baseURL = apiEndPoint;
 
     axios.interceptors.response.use(
         (response) => {
-            console.log('SErver response', response);
-            if (response.data) {
-                return response.data;
-            }
-            return response;
+            //console.log('SErver response', response);
+
+            return response.data;
         },
-        function (error) {
+        (error) => {
             console.log('Error =>', error);
             return handleError(error);
         },

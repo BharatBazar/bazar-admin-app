@@ -15,6 +15,7 @@ const ListShop: React.FC<ListShopProps> = ({ navigation }) => {
 
     async function fetchShopFromServer() {
         try {
+            console.log('Fetch shop =>');
             const response: IRgetShops = await getAllShopAccToCon({
                 query: { isVerified: false },
             });

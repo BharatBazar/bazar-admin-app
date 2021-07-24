@@ -147,10 +147,18 @@ const shopDetails = (shop: Partial<Shop>) => {
                 <WrappedText text={shop.localAddress} textColor={'#8a8a8a'} fontSize={fs14} />
             </View>
             <View style={[MT(0.1)]} />
-            {SectionHorizontal('State', shop.state.name)}
-            {SectionHorizontal('City', shop.city.name)}
-            {SectionHorizontal('Area', shop.area.name)}
-            {SectionHorizontal('Pincode', shop.pincode)}
+            {SectionHorizontal('State', shop.state.name || 'NA')}
+            {SectionHorizontal('City', shop.city.name || 'NA')}
+            {SectionHorizontal('Area', shop.area.name || 'NA')}
+            {SectionHorizontal('Pincode', shop.pincode || 'NA')}
+
+            <WrappedText
+                text={'About ' + shop.shopName + ' dukan'}
+                textColor={mainColor}
+                fontSize={fs18}
+                containerStyle={[MT(0.2)]}
+            />
+            <WrappedText text={shop.shopDescription} textColor={'#8a8a8a'} fontSize={fs14} />
         </View>
     );
 };
@@ -167,16 +175,22 @@ const ShopDetails: React.SFC<ShopDetailsProps> = ({
     const [worker, setWorker] = React.useState<shopMemberInterface[]>([]);
     const [loader, setLoader] = React.useState(false);
     const [dukanName, setDukanName] = React.useState<string>('');
-    const [verificationStatuss, setVerificationStatus] = React.useState<string>(verificationStatus.registered);
+    const [verificationStatuss, setVerificationStatus] = React.useState<verificationStatus>(
+        verificationStatus.registered,
+    );
+    const [message, setMessage] = React.useState('');
 
     async function getShopFromServer() {
         try {
+            console.log('get shop details =>');
             setLoader(true);
             const response: IRShop = await getShop({ _id: shop._id });
             setLoader(false);
+            console.log(response);
             if (response.status == 1) {
                 const shop = response.payload;
                 setShop(shop);
+
                 if (shop.owner) {
                     setOwnerDetails([{ ...shop.owner }]);
                 }
@@ -186,6 +200,8 @@ const ShopDetails: React.SFC<ShopDetailsProps> = ({
                 if (shop.worker.length > 0) {
                     setWorker(shop.worker);
                 }
+                setVerificationStatus(shop.verificationStatus);
+                setMessage(shop.remarks);
             }
         } catch (error) {
             setLoader(false);
@@ -195,8 +211,15 @@ const ShopDetails: React.SFC<ShopDetailsProps> = ({
 
     async function updateShopFromServer(data: Partial<Shop>) {
         try {
+            setLoader(true);
             const response: IRShop = await updateShop(data);
+            setLoader(false);
+            if (response.status == 1) {
+                ToastHOC.successAlert('Verification status updated.');
+            }
         } catch (error) {
+            setLoader(false);
+            ToastHOC.errorAlert('Problem updating verification status.');
             console.log('error', error);
         }
     }
@@ -211,7 +234,7 @@ const ShopDetails: React.SFC<ShopDetailsProps> = ({
             <Header screenName={shop.shopName} onPress={navigation.goBack} />
             <ScrollView style={[FLEX(1)]} nestedScrollEnabled={true}>
                 <View style={[MT(0.2), BGCOLOR('#FFFFFF'), PV(0.2), PH(0.5)]}>
-                    <WrappedText text={shopD.shopName + ' verificaiton status'} />
+                    <WrappedText text={shopD.shopName + ' dukan verificaiton status'} />
                     <View style={[MT(0.1)]} />
                     <WrappedDropDown
                         data={[
@@ -238,8 +261,10 @@ const ShopDetails: React.SFC<ShopDetailsProps> = ({
                             containerStyle={[MT(0.4)]}
                         />
                         <TextInput
-                            value={''}
-                            onChangeText={(experience) => {}}
+                            value={message}
+                            onChangeText={(message) => {
+                                setMessage(message);
+                            }}
                             placeholder={'Message for dukandar '}
                             style={[HP(2), { borderWidth: 0.18 }, BC('#646464'), BR(0.05), PH(0.2), PV(0.1), MT(0.2)]}
                             placeholderTextColor={'#58595B'}
@@ -248,9 +273,18 @@ const ShopDetails: React.SFC<ShopDetailsProps> = ({
                         />
                     </View>
                     <View style={[MT(0.2)]} />
-                    <Button title={'Save'} onPress={() => {}} />
+                    <Button
+                        title={'Save'}
+                        onPress={() => {
+                            updateShopFromServer({
+                                remarks: message,
+                                verificationStatus: verificationStatuss,
+                                _id: shopD._id,
+                            });
+                        }}
+                    />
                 </View>
-                <View>{shopDetails(shopD)}</View>
+                <View>{shopD.state ? shopDetails(shopD) : <View />}</View>
                 {showMemberDetails(owner, shopMemberRole.Owner, shopD.shopName)}
                 {showMemberDetails(coOwner, shopMemberRole.coOwner, shopD.shopName)}
                 {showMemberDetails(worker, shopMemberRole.worker, shopD.shopName)}

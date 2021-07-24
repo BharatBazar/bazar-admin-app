@@ -16,11 +16,6 @@ import { initializeAxios } from './src/server';
 import Toast from 'react-native-toast-message';
 
 const App: () => Node = () => {
-    React.useEffect(() => {
-        initializeAxios();
-        return () => {};
-    }, []);
-
     return (
         <>
             <StatusBar translucent={true} backgroundColor={'#00000000'} />
