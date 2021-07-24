@@ -13,6 +13,7 @@ import 'react-native-gesture-handler';
 import { StatusBar } from 'react-native';
 import AppNavigation from './src/navigation/AppNavigaiton';
 import { initializeAxios } from './src/server';
+import Toast from 'react-native-toast-message';
 
 const App: () => Node = () => {
     React.useEffect(() => {
@@ -24,6 +25,7 @@ const App: () => Node = () => {
         <>
             <StatusBar translucent={true} backgroundColor={'#00000000'} />
             <AppNavigation />
+            <Toast ref={(ref) => Toast.setRef(ref)} />
         </>
     );
 };
