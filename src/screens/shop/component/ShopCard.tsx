@@ -28,11 +28,10 @@ import HandleSvg from '../../../image/svg/HandleSvg';
 import { Shop } from '../../../server/api/shop/shop.interface';
 
 export enum IrequestStatus {
-    accepted = 'Accepted',
-    rejected = 'Rejected',
-    processing = 'Processing',
-    completed = 'Completed',
     registered = 'Registered',
+    processing = 'Processing',
+    rejected = 'Rejected',
+    verified = 'Verified',
 }
 
 export interface ShopCardProps {
@@ -73,8 +72,7 @@ const ShopCard: React.FC<ShopCardProps> = ({
                         PH(0.3),
                         PV(0.05),
                         BGCOLOR(
-                            verificationStatus === IrequestStatus.completed ||
-                                verificationStatus === IrequestStatus.accepted
+                            verificationStatus === IrequestStatus.verified
                                 ? mainColor
                                 : verificationStatus == IrequestStatus.processing
                                 ? '#f5a35d'

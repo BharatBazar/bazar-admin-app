@@ -21,14 +21,6 @@ const config: TransitionSpec = {
     },
 };
 class AppNavigation extends React.Component {
-    private async initializeApp() {
-        console.log('App initialization');
-        initializeAxios();
-    }
-
-    componentDidMount() {
-        this.initializeApp();
-    }
     render() {
         return (
             <NavigationContainer>
@@ -50,9 +42,9 @@ class AppNavigation extends React.Component {
                     <Stack.Screen
                         name={NavigationKey.SHOPDETAILS}
                         component={ShopDetails}
-                        options={{
-                            cardStyleInterpolator: Right,
-                        }}
+                        // options={{
+                        //     cardStyleInterpolator: Right,
+                        // }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
