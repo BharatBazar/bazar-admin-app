@@ -23,6 +23,7 @@ import {
 import Header from '../../component/Header';
 import WrappedDropDown from '../../component/WrappedDropDown';
 import WrappedFeatherIcon from '../../component/WrappedFeatherIcon';
+import LineHeading from '../../component/LineHeading';
 import WrappedText from '../../component/WrappedText';
 import { ToastHOC } from '../../core/Toast';
 import { getShop, updateShop } from '../../server/api/shop/shop.api';
@@ -42,8 +43,16 @@ export interface ShopDetailsProps extends NavigationProps {
     };
 }
 
-const Section = (propertyName: string, value: string) => (
+const SectionHorizontal = (propertyName: string, value: string) => (
     <View style={[FDR(), JCC('space-between'), MV(0.1)]}>
+        <WrappedText text={propertyName} fontSize={fs14} />
+
+        <WrappedText text={value} textColor={'#8a8a8a'} fontSize={fs14} />
+    </View>
+);
+
+const SectionVertical = (propertyName: string, value: string) => (
+    <View style={[MV(0.1)]}>
         <WrappedText text={propertyName} fontSize={fs14} />
 
         <WrappedText text={value} textColor={'#8a8a8a'} fontSize={fs14} />
@@ -102,7 +111,7 @@ const showMemberDetails = (details: shopMemberInterface[], role: shopMemberRole,
         return <WrappedText text={'There is no ' + role + ' in your shop.'} />;
     } else {
         return details.map((item) => (
-            <View style={[PV(0.2), MV(), PH(), BR(0.1), BGCOLOR('#FFFFFF')]}>
+            <View style={[PV(0.2), MT(0.1), PH(), BGCOLOR('#FFFFFF')]}>
                 <View style={[FDR(), JCC('space-between'), AIC()]}>
                     <WrappedText text={dukanName + ' ' + role + ' details'} textColor={mainColor} fontSize={fs18} />
                     <View style={[FDR()]}>
@@ -122,12 +131,28 @@ const showMemberDetails = (details: shopMemberInterface[], role: shopMemberRole,
                     </View>
                 </View>
                 <View style={[MT(0.1)]} />
-                {Section('First Name', item.firstName)}
-                {Section('Last Name', item.lastName)}
-                {Section('Phone Number', '+91 ' + item.phoneNumber)}
+                {SectionHorizontal('First Name', item.firstName)}
+                {SectionHorizontal('Last Name', item.lastName)}
+                {SectionHorizontal('Phone Number', '+91 ' + item.phoneNumber)}
             </View>
         ));
     }
+};
+
+const shopDetails = (shop: Partial<Shop>) => {
+    return (
+        <View style={[PV(0.2), MT(0.1), PH(), BGCOLOR('#FFFFFF')]}>
+            <View style={[]}>
+                <WrappedText text={shop.shopName + ' address details'} textColor={mainColor} fontSize={fs18} />
+                <WrappedText text={shop.localAddress} textColor={'#8a8a8a'} fontSize={fs14} />
+            </View>
+            <View style={[MT(0.1)]} />
+            {SectionHorizontal('State', shop.state.name)}
+            {SectionHorizontal('City', shop.city.name)}
+            {SectionHorizontal('Area', shop.area.name)}
+            {SectionHorizontal('Pincode', shop.pincode)}
+        </View>
+    );
 };
 
 const ShopDetails: React.SFC<ShopDetailsProps> = ({
@@ -225,6 +250,7 @@ const ShopDetails: React.SFC<ShopDetailsProps> = ({
                     <View style={[MT(0.2)]} />
                     <Button title={'Save'} onPress={() => {}} />
                 </View>
+                <View>{shopDetails(shopD)}</View>
                 {showMemberDetails(owner, shopMemberRole.Owner, shopD.shopName)}
                 {showMemberDetails(coOwner, shopMemberRole.coOwner, shopD.shopName)}
                 {showMemberDetails(worker, shopMemberRole.worker, shopD.shopName)}
