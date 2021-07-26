@@ -14,6 +14,7 @@ export interface DropDownTitleProps {
     zIndex: number;
     arrowColor?: string;
     header?: string;
+    disabled?: boolean;
     placeholder: string;
     zIndexInverse?: number;
     provideController?: Function;
@@ -62,6 +63,7 @@ const DropDownTitle: React.SFC<DropDownTitleProps> = ({
     placeholder,
     provideController,
     zIndexInverse,
+    disabled,
 }) => {
     const [open, setOpen] = React.useState(false);
     return (
@@ -76,6 +78,7 @@ const DropDownTitle: React.SFC<DropDownTitleProps> = ({
         <View style={[FDR()]}>
             <DropDownPicker
                 open={open}
+                disabled={disabled}
                 setOpen={setOpen}
                 controller={provideController}
                 items={data}

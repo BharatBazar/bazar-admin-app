@@ -186,11 +186,10 @@ const ShopDetails: React.SFC<ShopDetailsProps> = ({
 
     async function getShopFromServer() {
         try {
-            console.log('get shop details =>');
             setLoader(true);
             const response: IRShop = await getShop({ _id: shop._id });
             setLoader(false);
-            console.log(response);
+
             if (response.status == 1) {
                 const shop = response.payload;
                 setShop(shop);
@@ -216,6 +215,9 @@ const ShopDetails: React.SFC<ShopDetailsProps> = ({
     async function updateShopFromServer(data: Partial<Shop>) {
         try {
             setLoader(true);
+            if (data.verificationStatus == verificationStatus.verified) {
+                data['isVerified'] = true;
+            }
             const response: IRShop = await updateShop(data);
             setLoader(false);
             if (response.status == 1) {
@@ -257,6 +259,7 @@ const ShopDetails: React.SFC<ShopDetailsProps> = ({
                             setVerificationStatus(value);
                         }}
                         placeholder={'Verification Status'}
+                        disabled={shopD.isVerified}
                     />
 
                     <View style={{ zIndex: -1 }}>
