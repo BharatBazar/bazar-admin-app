@@ -2,8 +2,8 @@ import axios from 'axios';
 import { Platform } from 'react-native';
 import { Storage, StorageItemKeys } from '../storage';
 
-export const apiEndPoint = Platform.OS == 'ios' ? 'http://localhost:2112' : 'http://10.0.2.2:2112';
-
+//export const apiEndPoint = Platform.OS == 'ios' ? 'http://localhost:2112' : 'http://10.0.2.2:2112';
+export const apiEndPoint = 'http://localhost:2112';
 const handleError = (error: { isAxiosError: any; response: { data: any } }) => {
     function isNetworkError(err: { isAxiosError: any; response: { data: any } }) {
         return !!err.isAxiosError && !err.response;

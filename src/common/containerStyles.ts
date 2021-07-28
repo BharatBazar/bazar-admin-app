@@ -29,7 +29,7 @@ export const buttonContainerStyle: ViewStyle = {
     alignItems: 'center',
     justifyContent: 'center',
 
-    backgroundColor: colorCode.CHAKRALOW(70),
+    backgroundColor: 'blue',
 };
 
 export const absoluteBottomWrapper: ViewStyle = {

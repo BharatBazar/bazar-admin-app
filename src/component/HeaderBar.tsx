@@ -28,7 +28,7 @@ class HeaderBar extends Component<Props, {}> {
                     />
                     <WrappedText
                         text={'in 5 simple steps'}
-                        textColor={colorCode.CHAKRALOW(60)}
+                        textColor={'blue'}
                         fontSize={fs13}
                         textStyle={{ marginLeft: getWP(0.1) }}
                     />

@@ -2,28 +2,11 @@ import * as React from 'react';
 import { Button, Linking, Platform, ScrollView, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { fs14, fs18, NavigationProps } from '../../common';
-import { borderColor, colorCode, mainColor } from '../../common/color';
-import {
-    BC,
-    BGCOLOR,
-    BR,
-    BW,
-    FDR,
-    FLEX,
-    HP,
-    MT,
-    PH,
-    PV,
-    AIC,
-    JCC,
-    MV,
-    colorTransparency,
-    ML,
-} from '../../common/styles';
+import { mainColor } from '../../common/color';
+import { BC, BGCOLOR, BR, FDR, FLEX, HP, MT, PH, PV, AIC, JCC, MV, colorTransparency, ML } from '../../common/styles';
 import Header from '../../component/Header';
 import WrappedDropDown from '../../component/WrappedDropDown';
 import WrappedFeatherIcon from '../../component/WrappedFeatherIcon';
-import LineHeading from '../../component/LineHeading';
 import WrappedText from '../../component/WrappedText';
 import { ToastHOC } from '../../core/Toast';
 import { getShop, updateShop } from '../../server/api/shop/shop.api';

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { View, Image } from 'react-native';
-import Ripple from 'react-native-material-ripple';
+import { View, Image, TouchableOpacity } from 'react-native';
+//import Ripple from 'react-native-material-ripple';
 import { FontFamily, fs12, fs14, fs16, fs17 } from '../../../common';
 import { mainColor } from '../../../common/color';
 import { getHP, getWP } from '../../../common/dimension';
@@ -44,7 +44,7 @@ const ShopCard: React.FC<ShopCardProps> = ({
     onPress,
 }) => {
     return (
-        <Ripple
+        <TouchableOpacity
             style={[FDR(), BGCOLOR('#FFFFFF'), BR(0.1), PV(0.2), { borderBottomWidth: 1, borderColor: '#e5e5e5' }]}
             onPress={() => {
                 onPress && onPress();
@@ -95,7 +95,7 @@ const ShopCard: React.FC<ShopCardProps> = ({
                 </WrappedRectangleButton>
                 {HandleSvg({ marginLeft: getWP(0.5) }, '#1f1f1f', SvgIconList.RightArrowIcon, '14', '14')}
             </View>
-        </Ripple>
+        </TouchableOpacity>
     );
 };
 

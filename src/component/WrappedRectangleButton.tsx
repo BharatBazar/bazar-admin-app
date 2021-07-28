@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ViewStyle } from 'react-native';
+import { Pressable, ViewStyle } from 'react-native';
 import Ripple from 'react-native-material-ripple';
 
 export interface WrappedRectangleButtonProps {
@@ -16,7 +16,7 @@ const WrappedRectangleButton: React.FC<WrappedRectangleButtonProps> = ({
     rippleRadius,
 }) => {
     return (
-        <Ripple
+        <Pressable
             android_ripple={{ color: '#00000033', radius: rippleRadius || 200 }}
             onPress={() => {
                 onPress();
@@ -24,7 +24,7 @@ const WrappedRectangleButton: React.FC<WrappedRectangleButtonProps> = ({
             style={[containerStyle]}
         >
             {children && children}
-        </Ripple>
+        </Pressable>
     );
 };
 

@@ -17,20 +17,20 @@ export const colorCode = {
     RED: 'red',
 };
 
-export const mainColor = colorCode.CHAKRALOW(70);
-export const borderColor = colorCode.BLACKLOW(10);
+export const mainColor = colorCode.CHAKRA;
+export const borderColor = colorCode.BLACK;
 export const messageColor = '#8A8A8A';
 export const errorColor = '#ed4337';
-export const black10 = colorCode.BLACKLOW(10);
-export const black20 = colorCode.BLACKLOW(20);
-export const black30 = colorCode.BLACKLOW(30);
-export const black40 = colorCode.BLACKLOW(40);
-export const black50 = colorCode.BLACKLOW(50);
-export const black60 = colorCode.BLACKLOW(60);
-export const black70 = colorCode.BLACKLOW(70);
-export const black80 = colorCode.BLACKLOW(80);
-export const black90 = colorCode.BLACKLOW(90);
-export const black100 = colorCode.BLACKLOW(100);
+export const black10 = colorCode.BLACK;
+export const black20 = colorCode.BLACK;
+export const black30 = colorCode.BLACK;
+export const black40 = colorCode.BLACK;
+export const black50 = colorCode.BLACK;
+export const black60 = colorCode.BLACK;
+export const black70 = colorCode.BLACK;
+export const black80 = colorCode.BLACK;
+export const black90 = colorCode.BLACK;
+export const black100 = colorCode.BLACK;
 export const disabledColor = black10;
 export const generalColor = '#124234';
 export const productColor = [
